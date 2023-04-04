@@ -15,25 +15,22 @@ def get_diff_string(diff_status, key, value):
     return f'  {status[diff_status]} {key}: {value}'
 
 
-def generate_diff(file_path1, file_path2):
-    data1 = get_data_from_json(file_path1)
-    data2 = get_data_from_json(file_path2)
+def generate_diff(data1, data2):    
     reference_data = sorted({**data1, **data2})
-    diff_list = ['{']
+    diff_list = []
     for key in reference_data:
         value1 = data1.get(key, None)
         value2 = data2.get(key, None)
         if value1 == value2:
-            diff_list.append(get_diff_string('no diff', key, data1[key]))
+            diff_list.append(get_diff_string('no diff', key, value1))
         elif value1 is None:
-            diff_list.append(get_diff_string('in second', key, data2[key]))
+            diff_list.append(get_diff_string('in second', key, value2))
         elif value2 is None:
-            diff_list.append(get_diff_string('in first', key, data1[key]))
+            diff_list.append(get_diff_string('in first', key, value1))
         else:
-            diff_list.append(get_diff_string('in first', key, data1[key]))
-            diff_list.append(get_diff_string('in second', key, data2[key]))
-    diff_list.append('}')
-    return '\n'.join(diff_list)
+            diff_list.append(get_diff_string('in first', key, value1))
+            diff_list.append(get_diff_string('in second', key, value2))    
+    return '{\n' + '\n'.join(diff_list) + '\n}'
 
 
 def main():
@@ -43,7 +40,9 @@ def main():
     parser.add_argument('first_file', help='first_file')
     parser.add_argument('second_file', help='second_file')
     args = parser.parse_args()
-    res = generate_diff(args.first_file, args.second_file)
+    data1 = get_data_from_json(args.first_file)
+    data2 = get_data_from_json(args.second_file)    
+    res = generate_diff(data1, data2)
     print(res)
 
 
