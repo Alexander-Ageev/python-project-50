@@ -15,7 +15,7 @@ def get_diff_string(diff_status, key, value):
     return f'  {status[diff_status]} {key}: {value}'
 
 
-def generate_diff(data1, data2):    
+def generate_diff(data1, data2):
     reference_data = sorted({**data1, **data2})
     diff_list = []
     for key in reference_data:
@@ -29,7 +29,7 @@ def generate_diff(data1, data2):
             diff_list.append(get_diff_string('in first', key, value1))
         else:
             diff_list.append(get_diff_string('in first', key, value1))
-            diff_list.append(get_diff_string('in second', key, value2))    
+            diff_list.append(get_diff_string('in second', key, value2))
     return '{\n' + '\n'.join(diff_list) + '\n}'
 
 
@@ -41,7 +41,7 @@ def main():
     parser.add_argument('second_file', help='second_file')
     args = parser.parse_args()
     data1 = get_data_from_json(args.first_file)
-    data2 = get_data_from_json(args.second_file)    
+    data2 = get_data_from_json(args.second_file)
     res = generate_diff(data1, data2)
     print(res)
 

@@ -1,6 +1,5 @@
 from gendiff.scripts.gendiff import generate_diff
 import json
-import pytest
 
 
 def test_simple():
