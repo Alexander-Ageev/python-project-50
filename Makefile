@@ -1,4 +1,4 @@
-setup: install build publish package-install
+setup: install build publish
 
 install:
 	poetry install
@@ -10,7 +10,7 @@ test:
 	poetry run pytest
 
 cov-report:
-	poetry run pytest --cov=gendiff --cov-report=xml
+	poetry run pytest --cov=gendiff --cov-report xml
 
 selfcheck:
 	poetry check
