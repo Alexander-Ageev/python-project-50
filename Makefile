@@ -7,7 +7,11 @@ test:
 	poetry run pytest
 
 test-cov:
+	poetry run pytest
+
+make-report:
 	poetry run pytest --cov=gendiff --cov-report xml
+
 install:
 	poetry install
 
