@@ -32,10 +32,11 @@ jobs:
           chmod +x ./cc-test-reporter 
           ./cc-test-reporter before-build              
         name: Test & publish code coverage
-        uses: paambaati/codeclimate-action@v3.2.0
-        if: github.ref_name == 'main'
+        run: 
+          make cov-report
+        name: Send report
+        run:
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        with:
-          coverageCommand: make cov-report
-          debug: true
+          ./cc-test-reporter after-build -r $CC_TEST_REPORTER_ID
+        
