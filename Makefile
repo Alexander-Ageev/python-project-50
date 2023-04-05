@@ -9,8 +9,8 @@ test:
 test-cov:
 	poetry run pytest
 
-make-report:
-	poetry run pytest --cov=gendiff --cov-report xml
+test-report:
+	poetry run pytest --cov=gendiff --cov-report=xml
 
 install:
 	poetry install

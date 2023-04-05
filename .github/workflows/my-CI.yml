@@ -31,7 +31,7 @@ jobs:
         if: github.ref_name == 'main'
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-  
+
         with:
-          coverageCommand: make-report
+          coverageCommand: make test-report
           debug: true
