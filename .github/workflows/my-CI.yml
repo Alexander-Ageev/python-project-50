@@ -36,7 +36,7 @@ jobs:
           make cov-report
       - name: Send report        
         env:
-          TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         run:
-          ./cc-test-reporter after-build --id string  $TEST_REPORTER_ID
+          ./cc-test-reporter after-build -r aa28e4b4c5fcb4ad33673012fb26f8302f1377a0481dc0d1741e5f4779ad192b
         
