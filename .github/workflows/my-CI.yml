@@ -24,19 +24,13 @@ jobs:
           pip install poetry
           make install
       - name: Run linter and pytest
-        run:
-          make check
-      - name: Prepare report
         run: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          chmod +x ./cc-test-reporter 
-          ./cc-test-reporter before-build              
+          make check
       - name: Test & publish code coverage
-        run: 
-          make cov-report
-      - name: Send report        
+        uses: paambaati/codeclimate-action@v3.2.0
+        if: github.ref_name == 'main'
         env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        run:
-          ./cc-test-reporter after-build -r aa28e4b4c5fcb4ad33673012fb26f8302f1377a0481dc0d1741e5f4779ad192b
-        
+          CC_TEST_REPORTER_ID: aa28e4b4c5fcb4ad33673012fb26f8302f1377a0481dc0d1741e5f4779ad192b
+        with:
+          coverageCommand: make test-coverage
+          debug: true        
