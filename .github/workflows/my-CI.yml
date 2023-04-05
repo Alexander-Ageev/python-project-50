@@ -24,8 +24,7 @@ jobs:
           make install
       - name: Run linter and pytest
         run: |
-          make lint
-          make test
+          make check
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v3.2.0
         if: github.ref_name == 'main'
@@ -33,5 +32,5 @@ jobs:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
 
         with:
-          coverageCommand: make test-report
+          coverageCommand: make cov-report
           debug: true

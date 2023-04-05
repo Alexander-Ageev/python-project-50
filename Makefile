@@ -1,21 +1,23 @@
 setup: install build publish package-install
 
+install:
+	poetry install
+
 lint:
 	poetry run flake8 gendiff
 
 test:
 	poetry run pytest
 
-test-cov:
-	poetry run pytest
-
-test-report:
+cov-report:
 	poetry run pytest --cov=gendiff --cov-report=xml
 
-install:
-	poetry install
+selfcheck:
+	poetry check
 
-build:
+check: selfcheck test lint
+
+build: check
 	poetry build
 
 publish:
@@ -24,4 +26,4 @@ publish:
 package-install:
 	python3 -m pip install --user dist/*.whl
 
-.PHONY: install
+.PHONY: install test lint selfcheck check build
