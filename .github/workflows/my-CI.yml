@@ -34,9 +34,9 @@ jobs:
         name: Test & publish code coverage
         run: 
           make cov-report
-        name: Send report
-        run:
+        name: Send report        
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        run:
           ./cc-test-reporter after-build -r $CC_TEST_REPORTER_ID
         
