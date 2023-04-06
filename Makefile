@@ -9,6 +9,9 @@ lint:
 test:
 	poetry run pytest
 
+cov-html:
+	poetry run pytest --cov=gendiff --cov-report html:report
+
 cov-report:
 	poetry run pytest --cov=gendiff --cov-report xml
 
