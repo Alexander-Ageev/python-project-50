@@ -16,9 +16,9 @@ def get_diff_string(diff_status, key, value):
 
 
 def generate_diff(data1, data2):
-    reference_data = sorted({**data1, **data2})
+    keys = sorted(data1.keys() | data2.keys())
     diff_list = []
-    for key in reference_data:
+    for key in keys:
         value1 = data1.get(key, None)
         value2 = data2.get(key, None)
         if value1 == value2:
@@ -30,7 +30,8 @@ def generate_diff(data1, data2):
         else:
             diff_list.append(get_diff_string('in first', key, value1))
             diff_list.append(get_diff_string('in second', key, value2))
-    return '{\n' + '\n'.join(diff_list) + '\n}'
+    diff_string = '\n'.join(diff_list)
+    return f"{{\n{diff_string}\n}}"
 
 
 def main():
