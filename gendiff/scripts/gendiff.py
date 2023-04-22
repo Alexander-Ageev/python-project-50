@@ -1,11 +1,27 @@
 import argparse
 import json
+import yaml
 
 
 def get_data_from_json(file_path):
     with open(file_path) as file:
         data = json.load(file)
     return data
+
+
+def get_data_from_yaml(file_path):
+    with open(file_path) as file:
+        data = yaml.safe_load(file)
+    return data
+
+
+def get_data(file_path):
+    if file_path.endswith('.json'):
+        return get_data_from_json(file_path)
+    elif file_path.endswith(('yml', 'yaml')):
+        return get_data_from_yaml(file_path)
+    else:
+        return None
 
 
 def get_diff_string(diff_status, key, value):
@@ -41,8 +57,8 @@ def main():
     parser.add_argument('first_file', help='first_file')
     parser.add_argument('second_file', help='second_file')
     args = parser.parse_args()
-    data1 = get_data_from_json(args.first_file)
-    data2 = get_data_from_json(args.second_file)
+    data1 = get_data(args.first_file)
+    data2 = get_data(args.second_file)
     res = generate_diff(data1, data2)
     print(res)
 
