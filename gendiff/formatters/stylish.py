@@ -17,6 +17,17 @@ DEFAULT_STYLE = {
 }
 
 
+def get_correct_value(value):
+    if value is True:
+        return 'true'
+    elif value is False:
+        return 'false'
+    elif value is None:
+        return 'null'
+    else:
+        return value
+
+
 def stylish(data, style=DEFAULT_STYLE):
     stack = data[::-1]
     stilysh_data = [style['block open']]
@@ -57,6 +68,7 @@ def stylish(data, style=DEFAULT_STYLE):
         else:
             assert True, 'unknown status'
         status_symbol = style[status]
+        value = get_correct_value(value)
         for i in range(ex_level - level):
             stilysh_data.append(indent * (ex_level - i) + style['block close'])
         if value_type == TYPE_NODE:

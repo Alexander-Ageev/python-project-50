@@ -6,21 +6,26 @@ from gendiff.tools.get_difference import get_difference
 from gendiff.tools.get_data import get_data
 
 
-def generate_diff(reference_data, current_data, formatter=stylish):
-    data = get_difference(reference_data, current_data, [])
+def generate_diff(old_data, new_data, format='stylish'):
+    if format == 'plain':
+        formatter = plain
+    else:
+        formatter = stylish
+    data = get_difference(old_data, new_data, [])
     return formatter(data)
 
 
 def main():
     parser = argparse.ArgumentParser(
         description='Compares two configuration files and shows a difference.')
-    parser.add_argument('-f', '--format', help='set format of output')
-    parser.add_argument('reference_file', help='reference file')
-    parser.add_argument('current_file', help='current file')
+    parser.add_argument('-f', '--format', dest='format', default='stylish',
+                        help='set format of output')
+    parser.add_argument('old_file', help='old file')
+    parser.add_argument('new_file', help='new file')
     args = parser.parse_args()
-    reference_data = get_data(args.reference_file)
-    current_data = get_data(args.current_file)
-    res = generate_diff(reference_data, current_data)
+    old_data = get_data(args.old_file)
+    new_data = get_data(args.new_file)
+    res = generate_diff(old_data, new_data, args.format)
     print(res)
 
 
