@@ -4,9 +4,7 @@ from gendiff.tools import (
 )
 
 
-def get_diff_rec(
-        path, key, old_value=None, new_value=None,
-        status=PASS):
+def get_diff_rec(path, key, old_value, new_value=None, status=PASS):
     if isinstance(old_value, dict):
         old_value_type = TYPE_NODE
     else:
@@ -42,22 +40,31 @@ def get_difference(old_data, new_data, path):
     diff = []
     for key in sorted_keys:
         if key not in old_data:
-            rec = get_diff_rec(path, key, None, new_data[key], ADDED)
-            diff.append(rec)
+            status = ADDED
+            old_value = None
+            new_value = new_data[key]
         elif key not in new_data:
-            rec = get_diff_rec(path, key, old_data[key], status=REMOVED)
-            diff.append(rec)
-        elif isinstance(old_data[key], dict) and isinstance(new_data[key], dict):
-            rec = get_diff_rec(path, key, old_data[key], new_data[key], NODE)
-            diff.append(rec)
-            new_path = path + [key]
-            diff.extend(get_difference(old_data[key], new_data[key], new_path))
+            status = REMOVED
+            old_value = old_data[key]
+            new_value = None
+        elif isinstance(old_data[key], dict) and isinstance(
+                new_data[key], dict):
+            status = NODE
+            new_value = new_data[key]
+            old_value = old_data[key]
         elif old_data[key] == new_data[key]:
-            rec = get_diff_rec(path, key, old_data[key], new_data[key], EQUAL)
-            diff.append(rec)
+            status = EQUAL
+            new_value = new_data[key]
+            old_value = old_data[key]
         elif old_data[key] != new_data[key]:
-            rec = get_diff_rec(path, key, old_data[key], new_data[key], UPDATED)
-            diff.append(rec)
+            status = UPDATED
+            new_value = new_data[key]
+            old_value = old_data[key]
         else:
             assert True, 'Что-то пошло не по плану :('
+        rec = get_diff_rec(path, key, old_value, new_value, status)
+        diff.append(rec)
+        if status == NODE:
+            new_path = path + [key]
+            diff.extend(get_difference(old_value, new_value, new_path))
     return diff
