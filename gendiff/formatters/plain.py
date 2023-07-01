@@ -6,17 +6,18 @@ from gendiff.tools import (
 
 def get_correct_value(value):
     if isinstance(value, dict):
-        return '[complex value]'
+        result = '[complex value]'
     elif value is True:
-        return 'true'
+        result = 'true'
     elif value is False:
-        return 'false'
+        result = 'false'
     elif value is None:
-        return 'null'
+        result = 'null'
     elif isinstance(value, str):
-        return f'\'{value}\''
+        result = f'\'{value}\''
     else:
-        return value
+        result = value
+    return result
 
 
 def plain(data):
