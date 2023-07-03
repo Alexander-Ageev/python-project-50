@@ -11,6 +11,9 @@ test:
 	poetry run pytest --cov
 	poetry run pytest --cov=gendiff --cov-report xml
 
+cov-report:
+	poetry run pytest --cov=gendiff --cov-report xml
+
 selfcheck:
 	poetry check
 
