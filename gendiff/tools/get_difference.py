@@ -35,7 +35,7 @@ def get_children(data, path):
     return childrens
 
 
-def get_difference(old_data, new_data, path):
+def get_difference(old_data, new_data, path):  # noqa: C901
     sorted_keys = sorted(old_data.keys() | new_data.keys())
     diff = []
     for key in sorted_keys:

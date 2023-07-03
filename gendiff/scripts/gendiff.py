@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import argparse
+from jsondiff import diff
 from gendiff.formatters.stylish import stylish
 from gendiff.formatters.plain import plain
 from gendiff.tools.get_difference import get_difference
@@ -7,7 +8,9 @@ from gendiff.tools.get_data import get_data
 
 
 def generate_diff(old_data, new_data, format='stylish'):
-    if format == 'plain':
+    if format == 'json':
+        return diff(old_data, new_data)
+    elif format == 'plain':
         formatter = plain
     else:
         formatter = stylish

@@ -28,7 +28,7 @@ def get_correct_value(value):
         return value
 
 
-def stylish(data, style=DEFAULT_STYLE):
+def stylish(data, style=DEFAULT_STYLE):  # noqa: C901
     stack = data[::-1]
     stilysh_data = [style['block open']]
     ex_level = -1

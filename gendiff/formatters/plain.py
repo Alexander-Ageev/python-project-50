@@ -20,7 +20,7 @@ def get_correct_value(value):
     return result
 
 
-def plain(data):
+def plain(data):  # noqa: C901
     plain_data = []
     for line in data:
         key = line['key']
