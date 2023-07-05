@@ -5,7 +5,7 @@
 [![Actions Status](https://github.com/Alexander-Ageev/python-project-50/workflows/hexlet-check/badge.svg)](https://github.com/Alexander-Ageev/python-project-50/actions)
 [![Maintainablity](https://api.codeclimate.com/v1/badges/b32e97d7362b0b34962f/maintainability)](https://codeclimate.com/github/Alexander-Ageev/python-project-50/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/b32e97d7362b0b34962f/test_coverage)](https://codeclimate.com/github/Alexander-Ageev/python-project-50/test_coverage)
-[![my-CI](https://github.com/Alexander-Ageev/python-project-50/actions/workflows/my-CI.yml/badge.svg?branch=main&event=status)](https://github.com/Alexander-Ageev/python-project-50/actions/workflows/my-CI.yml)
+[![my-CI](https://github.com/Alexander-Ageev/python-project-50/actions/workflows/my-CI.yml/badge.svg)](https://github.com/Alexander-Ageev/python-project-50/actions/workflows/my-CI.yml)
 ## Description
 
 Searches for the difference in the parameters of two configuration files. Accepts input files in json or yaml formats. Returns the result in styilish, plain or json formats.
