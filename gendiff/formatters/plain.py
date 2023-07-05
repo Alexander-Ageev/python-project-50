@@ -1,4 +1,4 @@
-from gendiff.tools import (
+from tools import (
     ADDED, EQUAL, PASS, REMOVED,
     UPDATED, NODE,
 )

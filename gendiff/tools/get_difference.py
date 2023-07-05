@@ -25,16 +25,6 @@ def get_diff_rec(path, key, old_value, new_value=None, status=PASS):
     return res
 
 
-def get_children(data, path):
-    childrens = []
-    if not isinstance(data, dict):
-        return childrens
-    keys = sorted(data.items(), reverse=True)
-    for key, value in keys:
-        childrens.append(get_diff_rec(path, key, value))
-    return childrens
-
-
 def get_difference(old_data, new_data, path):  # noqa: C901
     sorted_keys = sorted(old_data.keys() | new_data.keys())
     diff = []

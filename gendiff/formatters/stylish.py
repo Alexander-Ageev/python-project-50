@@ -1,8 +1,9 @@
-from gendiff.tools import (
+from tools.get_difference import get_diff_rec
+from tools import (
     ADDED, EQUAL, PASS, REMOVED,
     UPDATED, NODE, TYPE_NODE,
 )
-from gendiff.tools.get_difference import get_children
+
 
 DEFAULT_STYLE = {
     'indent': '    ',
@@ -15,6 +16,16 @@ DEFAULT_STYLE = {
     'block open': '{',
     'block close': '}'
 }
+
+
+def get_children(data, path):
+    childrens = []
+    if not isinstance(data, dict):
+        return childrens
+    keys = sorted(data.items(), reverse=True)
+    for key, value in keys:
+        childrens.append(get_diff_rec(path, key, value))
+    return childrens
 
 
 def get_correct_value(value):

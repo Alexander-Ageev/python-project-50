@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
+import sys
+import os
 import argparse
 from jsondiff import diff
-from gendiff.formatters.stylish import stylish
-from gendiff.formatters.plain import plain
-from gendiff.tools.get_difference import get_difference
-from gendiff.tools.get_data import get_data
+sys.path.append(os.path.join(os.getcwd(), 'gendiff'))
+from formatters.stylish import stylish  # noqa E402
+from formatters.plain import plain  # noqa E402
+from tools.get_difference import get_difference  # noqa E402
+from tools.get_data import get_data  # noqa E402
 
 
 def generate_diff(old_data, new_data, format='stylish'):
