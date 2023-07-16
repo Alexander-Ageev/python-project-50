@@ -1,5 +1,5 @@
-from tools.get_difference import get_diff_rec
-from tools import (
+from gendiff.tools.get_difference import get_diff_rec
+from gendiff.tools import (
     ADDED, EQUAL, PASS, REMOVED,
     UPDATED, NODE, TYPE_NODE,
 )
