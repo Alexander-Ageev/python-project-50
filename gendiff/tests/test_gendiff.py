@@ -1,5 +1,4 @@
 from gendiff.scripts.gendiff import generate_diff
-from gendiff.tools.get_data import get_data
 
 
 def test_simple_json():
