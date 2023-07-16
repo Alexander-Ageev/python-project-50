@@ -1,5 +1,9 @@
-from gendiff.scripts.gendiff import generate_diff
-from gendiff.tools.get_data import get_data
+import sys
+import os
+sys.path.append(os.path.join(os.getcwd(), ''))
+print(sys.path)
+from gendiff import generate_diff
+from tools.get_data import get_data
 
 
 def test_simple_json():
