@@ -15,9 +15,9 @@ def get_data_from_yaml(file_path):
 
 
 def get_data(file_path):
-    if file_path.endswith('.json'):
+    if file_path.lower().endswith('.json'):
         return get_data_from_json(file_path)
-    elif file_path.endswith(('yml', 'yaml')):
+    elif file_path.lower().endswith(('yml', 'yaml')):
         return get_data_from_yaml(file_path)
     else:
         return None
