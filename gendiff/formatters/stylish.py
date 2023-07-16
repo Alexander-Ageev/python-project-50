@@ -1,4 +1,3 @@
-from gendiff.tools.get_difference import get_difference
 from gendiff.tools.get_difference import get_diff_rec
 from gendiff.tools import (
     ADDED, EQUAL, PASS, REMOVED,
@@ -40,8 +39,7 @@ def get_correct_value(value):
         return value
 
 
-def make_stylish(old_data, new_data, style=DEFAULT_STYLE):  # noqa: C901
-    data = get_difference(old_data, new_data, [])
+def make_stylish(data, style=DEFAULT_STYLE):  # noqa: C901
     stack = data[::-1]
     stilysh_data = [style['block open']]
     ex_level = -1

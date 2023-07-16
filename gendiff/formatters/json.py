@@ -1,5 +1,6 @@
-from jsondiff import diff
+import json
 
 
-def make_json(old_data, new_data):
-    return str(diff(old_data, new_data))
+def make_json(data):
+    res = json.dumps(data)
+    return res
