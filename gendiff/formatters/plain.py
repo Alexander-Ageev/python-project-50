@@ -1,3 +1,4 @@
+from gendiff.tools.get_difference import get_difference
 from gendiff.tools import (
     ADDED, EQUAL, PASS, REMOVED,
     UPDATED, NODE,
@@ -20,7 +21,8 @@ def get_correct_value(value):
     return result
 
 
-def plain(data):  # noqa: C901
+def make_plain(old_data, new_data):  # noqa: C901
+    data = get_difference(old_data, new_data, [])
     plain_data = []
     for line in data:
         key = line['key']
