@@ -1,3 +1,14 @@
+"""
+Модуль реализует форматтер plain для модуля gendiff.
+Позволяет выводить данные об изменениях параметров в виде "плоской"
+структуры с соответствующими статусами:
+Property 'common.follow' was added with value: false
+Property 'common.setting2' was removed
+Property 'common.setting3' was updated. From true to null
+Property 'common.setting4' was added with value: 'blah blah'
+"""
+
+
 from gendiff.tools import (
     ADDED, EQUAL, PASS, REMOVED,
     UPDATED, NODE,
@@ -5,6 +16,7 @@ from gendiff.tools import (
 
 
 def get_correct_value(value):
+    # Функция преобразует вывод значений в заданном формате
     if isinstance(value, dict):
         result = '[complex value]'
     elif value is True:
@@ -21,6 +33,9 @@ def get_correct_value(value):
 
 
 def make_plain(data):  # noqa: C901
+    # Функция реализует форматтер plain
+    # На вход получает данные об изменениях по каждому параметру
+    # Выводит строку соответствующего формата
     plain_data = []
     for line in data:
         key = line['key']

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 import argparse
-from gendiff.tools.get_difference import get_difference
+from gendiff.tools.get_difference import compare_data
 from gendiff.formatters.stylish import make_stylish  # noqa E402
 from gendiff.formatters.json import make_json  # noqa E402
 from gendiff.formatters.plain import make_plain  # noqa E402
-from gendiff.tools.get_data import get_data  # noqa E402
+from gendiff.tools.read_data import get_data  # noqa E402
 
 
 FORMATTERS = {
@@ -17,7 +17,7 @@ FORMATTERS = {
 def generate_diff(old_file, new_file, format='stylish'):
     old_data = get_data(old_file)
     new_data = get_data(new_file)
-    data = get_difference(old_data, new_data, [])
+    data = compare_data(old_data, new_data, [])
     return FORMATTERS.get(format, 'stylish')(data)
 
 

@@ -1,10 +1,18 @@
+"""
+Модуль предназначен для анализа изменений в двух наборах данных
+"""
+
+
 from gendiff.tools import (
     ADDED, EQUAL, PASS, REMOVED,
     UPDATED, NODE, TYPE_NODE, TYPE_LEAF
 )
 
 
-def get_diff_rec(path, key, old_value, new_value=None, status=PASS):
+def get_compare_status(path, key, old_value, new_value=None, status=PASS):
+    """
+    Функция записывает результат сравнения двух параметров в виде словаря.
+    """
     if isinstance(old_value, dict):
         old_value_type = TYPE_NODE
     else:
@@ -25,7 +33,18 @@ def get_diff_rec(path, key, old_value, new_value=None, status=PASS):
     return res
 
 
-def get_difference(old_data, new_data, path):  # noqa: C901
+def compare_data(old_data, new_data, path):  # noqa: C901
+    """
+    Функция получает на вход два словаря с наборами параметров
+    и путь к этим параметрам. Сверяет каждый параметр в этих словарях.
+    Результат выводится в виде списка данных о статусах каждого параметра.
+    ADDED - параметр добавлен в новый файл
+    REMOVED - параметр удален из нового файла
+    EQUAL - значения параметров одинаковые в обоих файлах
+    NODE - параметр является вложенной структурой
+    UPDATED - значение параметра изменено
+    PASS - сравнение не выполнялось
+    """
     sorted_keys = sorted(old_data.keys() | new_data.keys())
     diff = []
     for key in sorted_keys:
@@ -52,9 +71,9 @@ def get_difference(old_data, new_data, path):  # noqa: C901
             old_value = old_data[key]
         else:
             assert True, 'Что-то пошло не по плану :('
-        rec = get_diff_rec(path, key, old_value, new_value, status)
+        rec = get_compare_status(path, key, old_value, new_value, status)
         diff.append(rec)
         if status == NODE:
             new_path = path + [key]
-            diff.extend(get_difference(old_value, new_value, new_path))
+            diff.extend(compare_data(old_value, new_value, new_path))
     return diff
