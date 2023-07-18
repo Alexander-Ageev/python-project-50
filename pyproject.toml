@@ -2,8 +2,13 @@
 name = "hexlet-code"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["alexandrageev87@gmail.com>"]
 readme = "README.md"
+classifiers = [
+    "Topic :: Education",
+    "Topic :: Utilities"
+]
+repository = "github.com:Alexander-Ageev/python-project-50.git"
 packages = [{include = "gendiff"}]
 
 [tool.poetry.dependencies]

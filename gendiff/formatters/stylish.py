@@ -13,7 +13,7 @@
 """
 
 
-from gendiff.tools.get_difference import get_compare_status
+from gendiff.tools.internal_representation import get_children
 from gendiff.tools import (
     ADDED, EQUAL, PASS, REMOVED,
     UPDATED, NODE, TYPE_NODE,
@@ -33,20 +33,8 @@ DEFAULT_STYLE = {
 }
 
 
-def get_children(data, path):
-    # Функция возвращает список всех вложенных параметров
-    # сложносоставного параметра
-    childrens = []
-    if not isinstance(data, dict):
-        return childrens
-    keys = sorted(data.items(), reverse=True)
-    for key, value in keys:
-        childrens.append(get_compare_status(path, key, value))
-    return childrens
-
-
 def get_correct_value(value):
-    # Функция преобразует вывод значений в заданном формате
+    """Функция преобразует вывод значений в заданном формате"""
     if value is True:
         return 'true'
     elif value is False:
@@ -58,9 +46,10 @@ def get_correct_value(value):
 
 
 def make_stylish(data, style=DEFAULT_STYLE):  # noqa: C901
-    # Функция реализует форматтер stylish
-    # На вход получает данные об изменениях по каждому параметру
-    # Выводит строку соответствующего формата
+    """
+    Функция реализует форматтер stylish. На вход получает данные
+    об изменениях по каждому параметру. Выводит строку соответствующего формата
+    """
     stack = data[::-1]
     stilysh_data = [style['block open']]
     ex_level = -1

@@ -16,7 +16,7 @@ from gendiff.tools import (
 
 
 def get_correct_value(value):
-    # Функция преобразует вывод значений в заданном формате
+    """Функция преобразует вывод значений в заданном формате"""
     if isinstance(value, dict):
         result = '[complex value]'
     elif value is True:
@@ -33,9 +33,10 @@ def get_correct_value(value):
 
 
 def make_plain(data):  # noqa: C901
-    # Функция реализует форматтер plain
-    # На вход получает данные об изменениях по каждому параметру
-    # Выводит строку соответствующего формата
+    """
+    Функция реализует форматтер plain. На вход получает данные об изменениях
+    по каждому параметру. Выводит строку соответствующего формата
+    """
     plain_data = []
     for line in data:
         key = line['key']

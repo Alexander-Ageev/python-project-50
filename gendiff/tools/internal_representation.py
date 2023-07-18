@@ -1,6 +1,4 @@
-"""
-Модуль предназначен для анализа изменений в двух наборах данных
-"""
+"""Модуль предназначен для анализа изменений в двух наборах данных"""
 
 
 from gendiff.tools import (
@@ -9,10 +7,20 @@ from gendiff.tools import (
 )
 
 
-def get_compare_status(path, key, old_value, new_value=None, status=PASS):
-    """
-    Функция записывает результат сравнения двух параметров в виде словаря.
-    """
+def get_children(data, path):
+    """Функция возвращает список всех вложенных параметров
+    сложносоставного параметра"""
+    childrens = []
+    if not isinstance(data, dict):
+        return childrens
+    keys = sorted(data.items(), reverse=True)
+    for key, value in keys:
+        childrens.append(get_compare_record(path, key, value))
+    return childrens
+
+
+def get_compare_record(path, key, old_value, new_value=None, status=PASS):
+    """Функция записывает результат сравнения двух параметров в виде словаря"""
     if isinstance(old_value, dict):
         old_value_type = TYPE_NODE
     else:
@@ -71,7 +79,7 @@ def compare_data(old_data, new_data, path):  # noqa: C901
             old_value = old_data[key]
         else:
             assert True, 'Что-то пошло не по плану :('
-        rec = get_compare_status(path, key, old_value, new_value, status)
+        rec = get_compare_record(path, key, old_value, new_value, status)
         diff.append(rec)
         if status == NODE:
             new_path = path + [key]
