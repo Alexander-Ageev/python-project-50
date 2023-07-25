@@ -8,16 +8,14 @@ lint:
 
 test:
 	poetry run pytest
-	poetry run pytest --cov
-	poetry run pytest --cov=gendiff --cov-report xml
 
 cov-report:
 	poetry run pytest --cov=gendiff --cov-report xml
 
-selfcheck:
+check:
 	poetry check
-
-check: selfcheck test lint
+	poetry run pytest --cov=gendiff --cov-report xml
+	poetry run flake8 gendiff
 
 build: check
 	poetry build

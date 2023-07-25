@@ -2,7 +2,7 @@
 name = "hexlet-code"
 version = "0.1.0"
 description = ""
-authors = ["alexandrageev87@gmail.com>"]
+authors = ["Alexander Ageev <alexandrageev87@gmail.com>"]
 readme = "README.md"
 classifiers = [
     "Topic :: Education",
