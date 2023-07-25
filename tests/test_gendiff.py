@@ -24,3 +24,4 @@ def test_gendiff(old_file, new_file, formatter, expected):
     with open(expected) as file:
         res = file.read()
     assert generate_diff(old_file, new_file, formatter) == res
+

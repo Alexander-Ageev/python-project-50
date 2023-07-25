@@ -11,7 +11,7 @@ def main():
     parser.add_argument('-f', '--format',
                         dest='format',
                         default=DEFAULT_FORMATTER,
-                        choices=FORMATTERS.keys,
+                        choices=FORMATTERS.keys(),
                         help='set format of output')
     parser.add_argument('old_file', help='old file')
     parser.add_argument('new_file', help='new file')
