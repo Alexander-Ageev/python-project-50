@@ -3,6 +3,7 @@ from gendiff.tools.read_data import get_data
 from gendiff.formatters.json import make_json
 from gendiff.formatters.plain import make_plain
 from gendiff.formatters.stylish import make_stylish
+from gendiff.tools.parse_data import parse_data
 
 
 DEFAULT_FORMATTER = 'stylish'
@@ -14,7 +15,7 @@ FORMATTERS = {
 
 
 def generate_diff(old_file, new_file, format=DEFAULT_FORMATTER):
-    old_data = get_data(old_file)
-    new_data = get_data(new_file)
+    old_data = parse_data(*get_data(old_file))
+    new_data = parse_data(*get_data(new_file))
     data = compare_data(old_data, new_data, [])
     return FORMATTERS.get(format, DEFAULT_FORMATTER)(data)

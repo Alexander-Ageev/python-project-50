@@ -13,6 +13,9 @@ test:
 cov-report:
 	poetry run pytest --cov=gendiff --cov-report xml
 
+try:
+	poetry run try
+
 check: selfcheck lint
 
 selfcheck:

@@ -1,31 +1,24 @@
 """
-Модуль предназначен для чтения данных ииз разных форматов файлов.
-Интерфейсом модуля является функция get_data, который объединяет в себе
-разные функции чтения файлов.
+Модуль предназначен для чтения данных исходных файлов.
+Функция работает только с файлами JSON и YAML.
 """
-import json
-import yaml
 
 
-def get_data_from_json(file_path):
-    #  Чтение данных из JSON файла
-    with open(file_path) as file:
-        data = json.load(file)
-    return data
-
-
-def get_data_from_yaml(file_path):
-    # Чтение данных из YAML файла
-    with open(file_path) as file:
-        data = yaml.safe_load(file)
-    return data
+JSON = 'json'
+YAML = 'yaml'
 
 
 def get_data(file_path):
-    # Чтение данных из соответствующего файла
+    # Чтение данных из файла
+    ext = ''
+    with open(file_path) as file:
+        data = file.read()
     if file_path.lower().endswith('.json'):
-        return get_data_from_json(file_path)
+        ext = JSON
     elif file_path.lower().endswith(('yml', 'yaml')):
-        return get_data_from_yaml(file_path)
+        ext = YAML
     else:
-        return None
+        raise TypeError(
+            'Gendiff используется только для работы с JSON и YAML файлами'
+        )
+    return data, ext
