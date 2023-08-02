@@ -32,9 +32,9 @@ Searches for the difference in the parameters of two configuration files. Accept
 ```
 where:
 
-`'-'` The parameter is removed from new file.  
-`'+'` The parameter is added to a new file.  
-`' '` The parameters are equal in both files.  
+`'-'` The parameter is removed from new file.
+`'+'` The parameter is added to a new file.
+`' '` The parameters are equal in both files.
 
 ---
 ### Plain
