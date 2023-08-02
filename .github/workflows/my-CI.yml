@@ -19,12 +19,12 @@ jobs:
           python-version: ${{ matrix.python-version }}
         # make depends on poetry
       - name: Install dependencies
-        run:
+        run: |
           pip install --upgrade pip
           pip install poetry
           make install
       - name: Run linter
-        run: 
+        run: |
           make check
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v3.2.0
