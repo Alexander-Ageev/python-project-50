@@ -17,5 +17,5 @@ FORMATTERS = {
 def generate_diff(old_file, new_file, format=DEFAULT_FORMATTER):
     old_data = parse_data(*get_data(old_file))
     new_data = parse_data(*get_data(new_file))
-    data = compare_data(old_data, new_data, [])
+    data = compare_data(old_data, new_data, 0)
     return FORMATTERS.get(format, DEFAULT_FORMATTER)(data)
