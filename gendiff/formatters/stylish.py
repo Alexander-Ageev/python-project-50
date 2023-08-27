@@ -26,10 +26,24 @@ DEFAULT_STYLE = {
     REMOVED: '  - ',
     BLOCK_OPEN: '{',
     BLOCK_CLOSE: '}',
-    True: 'true',
-    False: 'false',
-    None: 'null'
 }
+
+
+def get_correct_value(value):
+    """
+    Функция возвращает корректное значение, соответствующее формату.
+    Внимание: при использовании словаря вместо функции невозможно отличить
+    True и False от 0 и 1
+    """
+    if value is True:
+        result = 'true'
+    elif value is False:
+        result = 'false'
+    elif value is None:
+        result = 'null'
+    else:
+        result = value
+    return result
 
 
 def get_children(source_key, source_value, level, status):
@@ -116,7 +130,7 @@ def format_record(record, style=DEFAULT_STYLE):
     level = record['level']
     status = record['status']
     key = record['key']
-    value = style.get(record['value'], record['value'])
+    value = get_correct_value(record['value'])
     if record['status'] != CLOSE:
         formated_record = f"{indent*level}{style[status]}{key}: {value}"
     else:

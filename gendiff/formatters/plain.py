@@ -25,8 +25,14 @@ def get_correct_value(value, style=DEFAULT_STYLE):
         result = '[complex value]'
     elif isinstance(value, str):
         result = f'\'{value}\''
+    elif value is True:
+        result = 'true'
+    elif value is False:
+        result = 'false'
+    elif value is None:
+        result = 'null'
     else:
-        result = style.get(value, value)
+        result = value
     return result
 
 
