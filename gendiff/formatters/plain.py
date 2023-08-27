@@ -9,55 +9,50 @@ Property 'common.setting4' was added with value: 'blah blah'
 """
 
 
-from gendiff.tools import (
-    ADDED, EQUAL, PASS, REMOVED,
-    UPDATED, NODE,
-)
+from gendiff.tools import (ADDED, REMOVED, UPDATED, NESTED)
 
 
-def get_correct_value(value):
+DEFAULT_STYLE = {
+    True: 'true',
+    False: 'false',
+    None: 'null'
+}
+
+
+def get_correct_value(value, style=DEFAULT_STYLE):
     """Функция преобразует вывод значений в заданном формате"""
     if isinstance(value, dict):
         result = '[complex value]'
-    elif value is True:
-        result = 'true'
-    elif value is False:
-        result = 'false'
-    elif value is None:
-        result = 'null'
     elif isinstance(value, str):
         result = f'\'{value}\''
     else:
-        result = value
+        result = style.get(value, value)
     return result
 
 
-def make_plain(data):  # noqa: C901
+def make_plain(data, path=''):
     """
     Функция реализует форматтер plain. На вход получает данные об изменениях
     по каждому параметру. Выводит строку соответствующего формата
     """
     plain_data = []
-    for line in data:
-        key = line['key']
-        path = '.'.join(line['path'] + [key])
-        status = line['status']
-        status_string = f'Property \'{path}\' was {status}'
-        new_line = ''
-        if status in [EQUAL, PASS, NODE]:
-            pass
+    for record in data:
+        key = record['key']
+        value = record['value']
+        status = record['status']
+        current_path = '.'.join([path, key]) if path != '' else key
+        status_string = f'Property \'{current_path}\' was {status}'
+        if status == NESTED:
+            plain_data.append(make_plain(value, current_path))
         elif status == ADDED:
-            new_value = get_correct_value(line['new_value'])
-            new_line = f'{status_string} with value: {new_value}'
+            line = f'{status_string} with value: {get_correct_value(value)}'
+            plain_data.append(line)
         elif status == REMOVED:
-            new_line = status_string
+            plain_data.append(status_string)
         elif status == UPDATED:
-            old_value = get_correct_value(line['old_value'])
-            new_value = get_correct_value(line['new_value'])
-            new_line = f'{status_string}. From {old_value} to {new_value}'
-        else:
-            assert True, 'unknown status'
-        if new_line:
-            plain_data.append(new_line)
+            old_value = get_correct_value(value[0])
+            new_value = get_correct_value(value[1])
+            line = f'{status_string}. From {old_value} to {new_value}'
+            plain_data.append(line)
     res = '\n'.join(plain_data)
     return res
