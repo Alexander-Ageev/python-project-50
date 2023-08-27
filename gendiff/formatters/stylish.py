@@ -68,7 +68,14 @@ def get_children(source_key, source_value, level, status):
 
 
 def get_plain_diff(nodes, level):
-    output = []
+    """
+    Функция преобразует внутренний формат к блочному представлению данных:
+    1. Выделяет вложенные структуры символами начала и конца блока,
+    2 .Считает уровень вложенности,
+    3. Раскрывает вложенные параметры, которые остались не тронутыми
+        в результате вычисления различий (со статусами ADDED, REMOVED, NESTED)
+    """
+    result = []
     for node in nodes:
         diff = []
         key = node['key']
@@ -76,31 +83,35 @@ def get_plain_diff(nodes, level):
         value = node['value']
         if status in {ADDED, REMOVED, EQUAL}:
             diff = get_children(key, value, level, status)
-            output.extend(diff)
+            result.extend(diff)
         elif status == UPDATED:
             diff = get_children(key, value[0], level, REMOVED)
-            output.extend(diff)
+            result.extend(diff)
             diff = get_children(key, value[1], level, ADDED)
-            output.extend(diff)
+            result.extend(diff)
         elif status == NESTED:
-            output.append(
+            result.append(
                 {'key': key,
                  'status': EQUAL,
                  'level': level,
                  'value': BLOCK_OPEN}
             )
             diff = get_plain_diff(value, level + 1)
-            output.extend(diff)
-            output.append(
+            result.extend(diff)
+            result.append(
                 {'key': '',
                  'status': CLOSE,
                  'level': level,
                  'value': BLOCK_CLOSE}
             )
-    return output
+    return result
 
 
 def format_record(record, style=DEFAULT_STYLE):
+    """
+    Функция форматирует плоскую структуру отличий
+    в соответствии с заданным стилем style.
+    """
     indent = style['indent']
     level = record['level']
     status = record['status']
