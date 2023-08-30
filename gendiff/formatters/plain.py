@@ -10,29 +10,17 @@ Property 'common.setting4' was added with value: 'blah blah'
 
 
 from gendiff.tools import (ADDED, REMOVED, UPDATED, NESTED)
+import json
 
 
-DEFAULT_STYLE = {
-    True: 'true',
-    False: 'false',
-    None: 'null'
-}
-
-
-def get_correct_value(value, style=DEFAULT_STYLE):
+def get_correct_value(value):
     """Функция преобразует вывод значений в заданном формате"""
     if isinstance(value, dict):
         result = '[complex value]'
     elif isinstance(value, str):
         result = f'\'{value}\''
-    elif value is True:
-        result = 'true'
-    elif value is False:
-        result = 'false'
-    elif value is None:
-        result = 'null'
     else:
-        result = value
+        result = json.dumps(value)
     return result
 
 
